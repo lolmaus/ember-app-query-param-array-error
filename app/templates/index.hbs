@@ -1,0 +1,206 @@
+<h1>Working cases via &lt;LinkTo></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Resulting URL</th>
+      <th>Source value</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <LinkTo @route="index" @query={{hash items=null}}>
+          (root)
+        </LinkTo>
+      </td>
+      <td>null</td>
+    </tr>
+
+    <tr>
+      <td>
+        <LinkTo @route="index" @query={{hash items=(array)}}>
+          (root)
+        </LinkTo>
+      </td>
+      <td>[]</td>
+    </tr>
+
+    <tr>
+      <td>
+        <LinkTo @route="index" @query={{hash items=(array "foo")}}>
+          ?items=%5B"foo"%5D
+        </LinkTo>
+      </td>
+      <td>["foo"]</td>
+    </tr>
+
+    <tr>
+      <td>
+        <LinkTo @route="index" @query={{hash items=(array "foo" 42)}}>
+          ?items=%5B"foo"%2C42%5D
+        </LinkTo>
+      </td>
+      <td>["foo", 42]</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<h1>Working cases via &lt;a></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source URL</th>
+      <th>Resulting value</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <a href="?">
+          (root)
+        </a>
+      </td>
+      <td>[]</td>
+    </tr>
+
+    <tr>
+      <td>
+        <LinkTo @route="index" @query={{hash items=(array "foo")}}>
+          ?items=%5B"foo"%5D
+        </LinkTo>
+      </td>
+      <td>["foo"]</td>
+    </tr>
+
+    <tr>
+      <td>
+        <LinkTo @route="index" @query={{hash items=(array "foo")}}>
+          ?items=%5B"foo"%2C42%5D
+        </LinkTo>
+      </td>
+      <td>["foo", 42]</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<h1>Crashes via &lt;LinkTo></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Resulting URL</th>
+      <th>Source value</th>
+      <th>Error message</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <LinkTo @route="index" @query={{hash items=true}}>
+          ?items=true
+        </LinkTo>
+      </td>
+      <td>true</td>
+      <td>Assertion Failed: Cannot call `meta` on boolean</td>
+    </tr>
+
+    <tr>
+      <td>
+        <LinkTo @route="index" @query={{hash items="foo"}}>
+          ?items=foo
+        </LinkTo>
+      </td>
+      <td>"foo"</td>
+      <td>Assertion Failed: Cannot call `meta` on string</td>
+    </tr>
+
+    <tr>
+      <td>
+        <LinkTo @route="index" @query={{hash items=42}}>
+          ?items=42
+        </LinkTo>
+      </td>
+      <td>42</td>
+      <td>Assertion Failed: Cannot call `meta` on number</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<h1>Working cases via &lt;a></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source URL</th>
+      <th>Supposed value</th>
+      <th>Error</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <a href="?items">
+          ?items
+        </a>
+      </td>
+      <td>true or ""</td>
+      <td>Assertion Failed: Cannot call `meta` on boolean</td>
+    </tr>
+
+    <tr>
+      <td>
+        <a href="?items">
+          ?items=
+        </a>
+      </td>
+      <td>true or ""</td>
+      <td>Assertion Failed: Cannot call `meta` on boolean</td>
+    </tr>
+
+    <tr>
+      <td>
+        <a href="?items=foo">
+          ?items=foo
+        </a>
+      </td>
+      <td>"foo"</td>
+      <td>Uncaught SyntaxError: Unexpected token 'o', "foo" is not valid JSON</td>
+    </tr>
+
+    <tr>
+      <td>
+        <a href="?items=foo">
+          ?items=42
+        </a>
+      </td>
+      <td>42</td>
+      <td>Uncaught Error: Assertion Failed: Cannot call `meta` on number</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h1>Items length: {{this.items.length}}</h1>
+
+{{#if this.items.length}}
+  <h1>Items:</h1>
+
+  <ul>
+    {{#each this.items as |item|}}
+      <li>{{item}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
