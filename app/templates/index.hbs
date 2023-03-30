@@ -110,7 +110,7 @@
         </LinkTo>
       </td>
       <td>true</td>
-      <td>Assertion Failed: Cannot call `meta` on boolean</td>
+      <td>Error: Assertion Failed: Cannot call `meta` on boolean</td>
     </tr>
 
     <tr>
@@ -120,7 +120,7 @@
         </LinkTo>
       </td>
       <td>"foo"</td>
-      <td>Assertion Failed: Cannot call `meta` on string</td>
+      <td>Error: Assertion Failed: Cannot call `meta` on string</td>
     </tr>
 
     <tr>
@@ -130,7 +130,7 @@
         </LinkTo>
       </td>
       <td>42</td>
-      <td>Assertion Failed: Cannot call `meta` on number</td>
+      <td>Error: Assertion Failed: Cannot call `meta` on number</td>
     </tr>
   </tbody>
 </table>
@@ -156,7 +156,7 @@
         </a>
       </td>
       <td>true or ""</td>
-      <td>Assertion Failed: Cannot call `meta` on boolean</td>
+      <td>Error: Assertion Failed: Cannot call `meta` on boolean</td>
     </tr>
 
     <tr>
@@ -166,7 +166,7 @@
         </a>
       </td>
       <td>true or ""</td>
-      <td>Assertion Failed: Cannot call `meta` on boolean</td>
+      <td>Error: Assertion Failed: Cannot call `meta` on boolean</td>
     </tr>
 
     <tr>
@@ -176,7 +176,7 @@
         </a>
       </td>
       <td>"foo"</td>
-      <td>Uncaught SyntaxError: Unexpected token 'o', "foo" is not valid JSON</td>
+      <td>SyntaxError: Unexpected token 'o', "foo" is not valid JSON</td>
     </tr>
 
     <tr>
@@ -186,7 +186,7 @@
         </a>
       </td>
       <td>42</td>
-      <td>Uncaught Error: Assertion Failed: Cannot call `meta` on number</td>
+      <td>Error: Assertion Failed: Cannot call `meta` on number</td>
     </tr>
   </tbody>
 </table>
